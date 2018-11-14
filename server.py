@@ -13,8 +13,8 @@ class Author(Resource):
         search_query = search_author(author_name)
         author = next(search_query).fill()
         articles = [{'title': pub.bib['title'],
-                     'year': pub.bib.year if hasattr(pub.bib, 'year') else '',
-                     'citationCount': pub.citedby if hasattr(pub, 'citedby') else 0}
+                     'year': pub.bib['year'] if 'year' in pub.bib else '',
+                     'citationCount': pub.citedby if hasattr(pub, 'citedby') else ''}
                     for pub in author.publications]
         result = {'name': author.name,
                   'hIndex': author.hindex,
