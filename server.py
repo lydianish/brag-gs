@@ -21,7 +21,7 @@ class Author(Resource):
                   'citationCount': author.citedby,
                   'citesPerYear': author.cites_per_year,
                   'articles': articles}
-        return result
+        return result, {'Access-Control-Allow-Origin': '*'}
 
 api.add_resource(Author, '/author')
 
