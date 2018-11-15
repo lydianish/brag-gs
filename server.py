@@ -9,19 +9,22 @@ api = Api(app)
 
 class Author(Resource):
     def get(self):
-        author_name = request.args.get('name')
-        search_query = search_author(author_name)
-        author = next(search_query).fill()
-        articles = [{'title': pub.bib['title'],
-                     'year': pub.bib['year'] if 'year' in pub.bib else '',
-                     'citationCount': pub.citedby if hasattr(pub, 'citedby') else ''}
-                    for pub in author.publications]
-        result = {'name': author.name,
-                  'hIndex': author.hindex,
-                  'citationCount': author.citedby,
-                  'citesPerYear': author.cites_per_year,
-                  'articles': articles}
-        return result, {'Access-Control-Allow-Origin': '*'}
+        try:
+            author_name = request.args.get('name')
+            search_query = search_author(author_name)
+            author = next(search_query).fill()
+            articles = [{'title': pub.bib['title'],
+                        'year': pub.bib['year'] if 'year' in pub.bib else '',
+                        'citationCount': pub.citedby if hasattr(pub, 'citedby') else ''}
+                        for pub in author.publications]
+            result = {'name': author.name,
+                    'hIndex': author.hindex,
+                    'citationCount': author.citedby,
+                    'citesPerYear': author.cites_per_year,
+                    'articles': articles}
+            return result, {'Access-Control-Allow-Origin': '*'}
+        except StopIteration:
+            return {'message': 'Error: No Google Scholar Found'}, 500, {'Access-Control-Allow-Origin': '*'}
 
 api.add_resource(Author, '/author')
 
