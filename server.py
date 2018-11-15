@@ -22,9 +22,9 @@ class Author(Resource):
                     'citationCount': author.citedby,
                     'citesPerYear': author.cites_per_year,
                     'articles': articles}
-            return result, {'Access-Control-Allow-Origin': '*'}
+            return result, 200, {'Access-Control-Allow-Origin': '*'}
         except StopIteration:
-            return {'message': 'Error: No Google Scholar Found'}, 500, {'Access-Control-Allow-Origin': '*'}
+            return {'error': 'No Google Scholar profile found'}, 200, {'Access-Control-Allow-Origin': '*'}
 
 api.add_resource(Author, '/author')
 
