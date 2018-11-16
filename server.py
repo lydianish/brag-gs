@@ -37,13 +37,10 @@ class Author(Resource):
             articles = []
             for pub in author.publications:
                 title = pub.bib['title']
-                articleURL = searchArticleURL(title)
-                if articleURL:
-                    article = {'title': title,
-                            'year': pub.bib['year'] if 'year' in pub.bib else '',
-                            'citationCount': pub.citedby if hasattr(pub, 'citedby') else '',
-                            'url': articleURL}
-                    articles.append(article)
+                article = {'title': title,
+                        'year': pub.bib['year'] if 'year' in pub.bib else '',
+                        'citationCount': pub.citedby if hasattr(pub, 'citedby') else ''}
+                articles.append(article)
             result = {'name': author.name,
                     'hIndex': author.hindex,
                     'citationCount': author.citedby,
@@ -59,3 +56,13 @@ api.add_resource(Author, '/author')
 
 if __name__ == '__main__':
     app.run(port='5002')
+
+""" for pub in author.publications:
+                title = pub.bib['title']
+                articleURL = searchArticleURL(title)
+                if articleURL:
+                    article = {'title': title,
+                            'year': pub.bib['year'] if 'year' in pub.bib else '',
+                            'citationCount': pub.citedby if hasattr(pub, 'citedby') else '',
+                            'url': articleURL}
+                    articles.append(article) """
