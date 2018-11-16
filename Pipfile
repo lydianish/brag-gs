@@ -7,6 +7,9 @@ name = "pypi"
 scholarly = "*"
 flask = "*"
 flask-restful = "*"
+google-search = "*"
+google = "*"
+requests = "*"
 
 [dev-packages]
 

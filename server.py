@@ -1,6 +1,7 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
 from scholarly import search_author
+from googlesearch import search
 
 
 app = Flask(__name__)
@@ -15,7 +16,8 @@ class Author(Resource):
             author = next(search_query).fill()
             articles = [{'title': pub.bib['title'],
                         'year': pub.bib['year'] if 'year' in pub.bib else '',
-                        'citationCount': pub.citedby if hasattr(pub, 'citedby') else ''}
+                        'citationCount': pub.citedby if hasattr(pub, 'citedby') else '',
+                        'url': next(search('pmid '+ pub.bib['title'], num=1,tld="co.in",stop=0))}
                         for pub in author.publications]
             result = {'name': author.name,
                     'hIndex': author.hindex,
