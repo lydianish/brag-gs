@@ -1,6 +1,10 @@
 # brag-gs
 A Google Scholar API for BRAG
 
+## Environment
+
+Requires [Python 3](https://www.python.org/downloads/) to be installed.
+
 ## Installation
 
 ```bash
