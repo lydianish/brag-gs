@@ -3,6 +3,10 @@ from flask_restful import Resource, Api
 from scholarly import search_author
 import requests
 import credentials
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from brag_db_declarative import Journal, Base
+import simplejson as json
 
 app = Flask(__name__)
 api = Api(app)
@@ -52,7 +56,26 @@ class Author(Resource):
         except CustomSearchError as err:
              return {'error': err.message }, err.code, {'Access-Control-Allow-Origin': '*'}
 
+class Journals(Resource):
+    def get(self):
+        engine = create_engine('postgresql+psycopg2://' + credentials.user + ':' + credentials.password + '@localhost:5432/brag')
+        Base.metadata.bind = engine
+        DBSession = sessionmaker(bind=engine)
+        session = DBSession()
+        journals = []
+        res = session.query(Journal).all()
+        for row in res:
+            journal = {
+                'title': row.title,
+                'impactFactor': json.dumps(row.impact_factor)
+            }
+            journals.append(journal)
+        result = {'journals': journals}
+        return result, 200, {'Access-Control-Allow-Origin': '*'}
+        
+
 api.add_resource(Author, '/author')
+api.add_resource(Journals, '/journals')
 
 if __name__ == '__main__':
     app.run(port='5002')
