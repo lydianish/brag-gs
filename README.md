@@ -10,7 +10,7 @@ Requires [Python 3](https://www.python.org/downloads/) to be installed.
 ```bash
 pip install --user pipenv
 cd brag-gs
-pipenv install scholarly flask flask_restful
+pipenv install scholarly flask flask_restful gunicorn
 ```
 
 ## Running the server locally

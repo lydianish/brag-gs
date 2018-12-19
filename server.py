@@ -31,4 +31,4 @@ class Author(Resource):
 api.add_resource(Author, '/author')
 
 if __name__ == '__main__':
-    app.run(port='5002')
+    app.run()
