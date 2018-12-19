@@ -11,6 +11,7 @@ google-search = "*"
 google = "*"
 requests = "*"
 gunicorn = "*"
+idna = "*"
 
 [dev-packages]
 
