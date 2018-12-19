@@ -9,7 +9,7 @@ api = Api(app)
 class Author(Resource):
     def get(self):
         try:
-            author_name = request.args.get('name')
+            author_name = request.args.get("name")
             search_query = search_author(author_name)
             author = next(search_query).fill()
             articles = []
