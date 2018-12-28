@@ -27,6 +27,8 @@ class Author(Resource):
             return result, 200, {'Access-Control-Allow-Origin': '*'}
         except StopIteration:
             return {'error': 'No Google Scholar profile found'}, 200, {'Access-Control-Allow-Origin': '*'}
+        except:
+            return {'error': 'Access to Google Scholar forbidden'}, 200, {'Access-Control-Allow-Origin': '*'}
 
 api.add_resource(Author, '/author')
 
