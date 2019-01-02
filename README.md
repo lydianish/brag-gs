@@ -8,6 +8,7 @@ Requires [Python 3](https://www.python.org/downloads/) to be installed.
 ## Installation
 
 ```bash
+git clone https://github.com/lydianish/brag-gs.git 
 pip install --user pipenv
 cd brag-gs
 pipenv install scholarly flask flask_restful gunicorn
